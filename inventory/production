@@ -1,0 +1,18 @@
+# Ansible Inventory – production environment
+# Documentation: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+
+[webservers]
+web1.example.com ansible_host=192.168.1.10
+web2.example.com ansible_host=192.168.1.11
+
+[dbservers]
+db1.example.com ansible_host=192.168.1.20
+
+[monitoring]
+monitor1.example.com ansible_host=192.168.1.30
+
+# Group of groups
+[production:children]
+webservers
+dbservers
+monitoring

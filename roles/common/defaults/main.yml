@@ -1,0 +1,14 @@
+---
+# Default variables for the common role.
+# These can be overridden in group_vars or host_vars.
+
+timezone: UTC
+
+common_packages:
+  - vim
+  - curl
+  - wget
+
+ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org

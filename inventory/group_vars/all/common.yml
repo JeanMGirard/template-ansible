@@ -1,0 +1,21 @@
+---
+# Variables applied to every host in the inventory.
+# Override per group or host as needed.
+
+# System
+timezone: UTC
+ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+
+# Common packages to install on all hosts
+common_packages:
+  - vim
+  - curl
+  - wget
+  - htop
+  - git
+
+# SSH hardening
+ssh_permit_root_login: "no"
+ssh_password_authentication: "no"

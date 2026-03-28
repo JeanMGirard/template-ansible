@@ -1,0 +1,7 @@
+---
+# Handlers for the common role.
+
+- name: Restart NTP
+  ansible.builtin.service:
+    name: ntp
+    state: restarted

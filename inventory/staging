@@ -1,0 +1,12 @@
+# Ansible Inventory – staging environment
+
+[webservers]
+web1-staging.example.com ansible_host=10.0.1.10
+
+[dbservers]
+db1-staging.example.com ansible_host=10.0.1.20
+
+# Group of groups
+[staging:children]
+webservers
+dbservers
