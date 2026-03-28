@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+dotenv:
+  - .env
+  - .env.example
+
+env:
+  ANSIBLE_CONFIG: ./ansible.cfg
+  ANSIBLE_VAULT_PASSWORD_FILE: ./config/.vault_pass
+
+tasks:
+  venv:
+    desc: Create or load virtual environment
+    internal: true
+    silent: true
+    deps: [ install ]
+    status:
+      - if [ -z "$VIRTUAL_ENV" ]; then exit 1; fi
+    cmds:
+      - source ./.venv/bin/activate
+
+  install:
+    desc: Install dependencies
+    silent: true
+    status:
+      - if [ ! -d ./.venv ]; then exit 1; fi
+    cmds:
+      - uv venv ./.venv
+      - source ./.venv/bin/activate
+      - uv sync --all-extras --all-groups
+      - ansible-galaxy collection install -r requirements.yml
+      - pre-commit install
+
+  ping:
+    desc: Ping
+    cmd: uv run ansible windows -vvv -m win_ping {{.CLI_ARGS}}
+
+  whoami:
+    desc: whoami
+    cmd: uv run ansible windows -vvv -m win_whoami {{.CLI_ARGS}}
+
+  playbook:
+    desc: Run ansible playbook
+    cmd: uv run ansible-playbook -vv {{.CLI_ARGS}}
+    # cmd: ansible-playbook -vv ./playbooks/{{OS}}.yml {{.CLI_ARGS}}
+
+  ansible:encrypt:
+    cmds:
+      - uv run ansible-vault encrypt ./inventory/group_vars/all.yml
+
+  ansible:decrypt:
+    cmds:
+      - uv run ansible-vault decrypt ./inventory/group_vars/all.yml
+
+  vault_pass:windows:
+    internal: true
+    desc: Write vault password to file on windows
+    silent: true
+    generates: [ "./config/.vault_pass" ]
+    platforms: [ windows ]
+    cmd: |
+      echo "{{.VAULT_PASSWORD}}" > "./config/.vault_pass"
+      $acl = Get-Acl -Path "./config/.vault_pass"
+      $acl.AddAccessRule((New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "Read", "Allow")))
+      $acl.SetAccessRuleProtection($true, $false)
+      Set-Acl -Path "./config/.vault_pass" -AclObject $acl

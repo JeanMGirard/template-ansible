@@ -1,0 +1,7 @@
+---
+- name: Example
+  gather_facts: yes
+  hosts: all
+  become: true
+  vars: {}
+  roles: []

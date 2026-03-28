@@ -1,0 +1,19 @@
+[project]
+name = "ansible-workstation"
+version = "0.1.0"
+description = "Ansible Workstation is a Python package that provides tools and utilities for managing Ansible playbooks and configurations. It offers a streamlined interface for working with Ansible, making it easier to automate tasks and manage infrastructure."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ansible-core",
+    "ansible-lint",
+    "molecule>=24.0.0",
+    "molecule-plugins[docker]>=23.5.0",
+    "pytest",
+    "pytest-testinfra",
+    "yamllint",
+    "jmespath",
+    "netaddr",
+    "passlib",
+    "pre-commit"
+]
