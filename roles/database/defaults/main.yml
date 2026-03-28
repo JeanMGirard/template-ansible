@@ -1,0 +1,12 @@
+---
+# Default variables for the database role.
+
+db_port: 5432
+db_max_connections: 100
+db_shared_buffers: "256MB"
+
+# Path to the main postgresql.conf.
+# Adjust for your distribution and PostgreSQL version:
+#   Debian/Ubuntu: /etc/postgresql/<version>/main/postgresql.conf
+#   RHEL/CentOS:   /var/lib/pgsql/data/postgresql.conf
+db_config_path: /etc/postgresql/14/main/postgresql.conf

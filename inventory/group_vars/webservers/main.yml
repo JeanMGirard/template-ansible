@@ -1,0 +1,9 @@
+---
+# Variables for the webservers group.
+# Uncomment and adjust to override the role defaults defined in
+# roles/webserver/defaults/main.yml for this specific group.
+
+# http_port: 80
+# https_port: 443
+# nginx_worker_processes: auto
+# nginx_worker_connections: 1024

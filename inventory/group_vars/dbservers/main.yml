@@ -1,0 +1,6 @@
+---
+# Variables for the dbservers group.
+
+db_port: 5432
+db_max_connections: 100
+db_shared_buffers: "256MB"

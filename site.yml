@@ -1,0 +1,21 @@
+---
+# Main playbook – entry point for the entire infrastructure.
+# Run with: ansible-playbook site.yml
+
+- name: Apply common configuration to all hosts
+  hosts: all
+  gather_facts: true
+  roles:
+    - common
+
+- name: Configure web servers
+  hosts: webservers
+  gather_facts: true
+  roles:
+    - webserver
+
+- name: Configure database servers
+  hosts: dbservers
+  gather_facts: true
+  roles:
+    - database
